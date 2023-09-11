@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_ws_locations/locations_bloc.dart';
+import 'package:flutter_ws_locations/marker_item.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -22,20 +23,8 @@ class HomePage extends StatelessWidget {
           BlocBuilder<LocationsBloc, LocationsStates>(
             builder: (context, state) {
               return MarkerLayer(
-                markers: state.locations
-                    .map((e) => Marker(
-                          point: e,
-                          height: 50,
-                          width: 50,
-                          anchorPos: AnchorPos.align(AnchorAlign.top),
-                          builder: (context) {
-                            return Icon(
-                              Icons.location_on_rounded,
-                              size: 50,
-                            );
-                          },
-                        ))
-                    .toList(),
+                markers:
+                    state.locations.map((e) => MarkerItem(point: e)).toList(),
               );
             },
           )
